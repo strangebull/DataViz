@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+<script type="text/javascript" src="dist/fullpage.js"></script>
+<script type="text/javascript" src="dist/fullpage.extensions.min.js"></script>
+
+<!--script type="text/javascript" src="https://github.com/alvarotrigo/fullPage.js/blob/master/dist/fullpage.extensions.min.js"></script>
+<script type="text/javascript" src="https://github.com/alvarotrigo/fullPage.js/blob/master/dist/fullpage.js"></script-->
+
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="dist/fullpage.css" />
+        <link rel="stylesheet" type="text/css" href="dist/examples.css" />
+
+        <!--link rel="stylesheet" type="text/css" href="https://github.com/alvarotrigo/fullPage.js/blob/master/dist/fullpage.css" />
+        <link rel="stylesheet" type="text/css" href="https://github.com/alvarotrigo/fullPage.js/blob/master/examples/examples.css" /-->
+        <style>
+            /* Common */
+           .div {
+                text-align: justify; 
+                margin-left: 200px;
+                margin-right:200px;
+                margin-top:20px;
+                color:white;
+           }
+
+           .divChart {
+                width: 100%;
+               /* height:100%;
+               vertical-align: top;*/
+               align-content: center;
+           }
+
+           intro {
+               text-align: center;
+           }
+
+           h2 {
+               font-size: 20px;
+               text-decoration: underline;
+               font-weight: bold;
+           }
+
+            .label {
+                font-weight: bold;
+                font-size:15px;
+            }
+
+            .annotate {
+                font-size:medium;
+                fill:white;
+                border:1px;
+                border-color: gray;
+                border-radius: 8px;  
+
+            }
+
+            div.tooltip {   
+                position: absolute;           
+                text-align: left;           
+                width: 200px;                  
+                height: auto;                 
+                padding: 10px;             
+                font: 12px sans-serif;        
+                background: lightsteelblue;   
+                border: 0px;      
+                border-radius: 8px;           
+                pointer-events: none;         
+            }
+
+            .key-dot {
+                display: inline-block;
+                height: 10px;
+                margin-right: .5em;
+                width: 10px;
+            }
+
+            .legend2 {
+                float:left;
+                margin-right: 1em;
+                padding:10,10,0,5;
+                font-size: 12px;
+            }
+
+           /* rect:hover {
+                fill: yellowgreen ;
+            } */
+
+           /*Section 3 - Chart1*/
+           .axis {
+                font: 10px sans-serif;
+            }
+
+            .axis path,
+            .axis line {
+            fill: none;
+            stroke: #D4D8DA;
+            stroke-width: 2px;
+            shape-rendering: crispEdges;
+            }
+
+            .line {
+                fill: none;
+                stroke: lightgreen;
+                stroke-width: 5px;
+            }
+           .overlay {
+                fill: none;
+                pointer-events: all;
+            }
+
+            .focus circle {
+                fill: #F1F3F3;
+                stroke: darkgreen;
+                stroke-width: 5px;
+            }
+            
+            .hover-line {
+                stroke: darkgreen;
+                stroke-width: 2px;
+                stroke-dasharray: 3,3;
+            }
+            
+            .dot {
+                fill:blue;
+            }
+            /*Section 3 - Chart2*/
+            
+            /* Section 3- Chart 3 */
+            .sectors_3 {
+                border: 1px solid green;
+                padding:5px;
+            }
+            
+            .axis rect.rectbar:hover {
+                fill: yellowgreen;
+            }
+        </style>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('#myContainer').fullpage({
+                    sectionsColor: ['#ff73a1', '#4BBFC3', '#7BAABE', '#4BBFC3', '#4BBFC3', '#ccc'],
+                    anchors: ['FirstPage', 'SecondPage', 'ThirdPage', 'FourthPage'],
+                    //menu: '#menu',
+                    slidesNavigation: true,
+                    scrollHorizontally: true,
+                    scrollHorizontallyKey: 'YWx2YXJvdHJpZ28uY29tX01mU2MyTnliMnhzU0c5eWFYcHZiblJoYkd4NVNRcg==',
+                    afterRender: function(){
+		                var pluginContainer = this;
+		                console.log("The resulting DOM structure is ready");
+                    },
+                    afterLoad: function(origin, destination, direction){
+                        console.log("afterLoad--" + "anchorLink: " + destination + " index: " + destination.index);
+                        
+                        switch (destination.index) {
+                            case 0:
+                                //No action    
+                                break;
+                            case 1:
+                                
+                                
+
+                                break;
+                            case 2:
+                                //Loaded for the first time when loaded from section 3
+                                drawChart31_1();
+                                break;
+                            case 3:
+                                //Loaded for the first time when loaded from section 4
+								createControls_Chart4_1();
+                                drawChart41_1();
+                                break;
+                            default:
+                                break;
+                        }
+                        if(destination.index == 0) {
+
+                        }
+                        //using index
+                        if(origin != null && origin.index == 2){
+                            //alert("Section 3 ended loading");
+                        }
+
+                        //using anchorLink
+                        if(origin != null && origin.anchor == 'secondSlide'){
+                            //alert("Section 2 ended loading");
+                        }
+                    },
+                    afterSlideLoad: function(anchorLink, index, slideAnchor, slideIndex){
+                        console.log("slideLoad--" + "anchorLink: " + anchorLink + " index: " + index + " slideAnchor: " + slideAnchor + " slideIndex: " + slideIndex);
+                        
+                        //anchorLink: Page or Section
+                        //slideAnchor: Destination slide Index
+                        switch (anchorLink.anchor) {
+                            case "FirstPage":
+                                switch (slideAnchor.index) {
+                                    case 0:
+                                        
+                                        break;
+                                    case 1:
+                                        
+                                        break;
+                                    case 2:
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                break;
+                            case "SecondPage":
+
+                            case "ThirdPage":
+
+                                switch (slideAnchor.index) {
+                                    case 0:
+                                        drawChart31_1();
+                                        break;
+                                    case 1:
+                                        drawChart3_2();
+                                        break;
+                                    case 2:
+                                        drawChart3_3();
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                case "FourthPage":
+
+                                    switch (slideAnchor.index) {
+                                        case 0:
+										
+                                            drawChart41_1();
+                                            break;
+                                        case 1:
+                                            drawChart4_2();
+                                            break;
+                                        case 2:
+                                            drawChart4_3();
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                            default:
+                                break;
+                        }
+
+                        //3rd Page Index 2 = 3.2
+                        if(anchorLink.anchor == "ThirdPage") {
+
+                            if(anchorLink.index == 2) {
+
+                            }
+                        }
+
+
+                    },
+                    onSlideLeave: function(anchorLink, index, slideIndex, direction){
+                        console.log("----------------");
+                        console.log("onSlideLeave--" + "anchorLink: " + anchorLink + " index: " + index + " slideIndex: " + slideIndex + " direction: " + direction);
+                    }
+                });
+            });
+
+            </script>
+
+
+    </head>
+<body>
+    <ul id="menu" style="display:none">
+            <li data-menuanchor="FirstPage"><a href="#FirstPage">First slide</a></li>
+            <li data-menuanchor="SecondPage"><a href="#SecondPage">Second slide</a></li>
+            <li data-menuanchor="ThirdPage"><a href="#ThirdPage">Third slide</a></li>
+            <li data-menuanchor="FourthPage"><a href="#FourthPage">Fourth slide</a></li>
+        </ul>
+        <div id="myContainer">
+
+            <!-- Section 1 - Introduction -->
+            <div class="section">
+                    <div class="slide">
+                        <di class="intro">
+                            <h1>US States Tax Collection & Trends</h1>
+                            <h3 style="text-align: right; margin-right:120px;">Storytelling with Interactive Data Visualization</h3>
+                                <br/>
+                            <div class="div">
+                                <h2 style="margin-left:-40px"><b>Approach:</b> </h2>
+                                <span>Following the Hybrid Model of Data visualization starting with Interactive slideshow and then drilldown approach for each slide.</span>
+                                <br/><br/>
+
+                                <h2 style="margin-left:-40px"><b>Rules: </b></h2>
+
+                                <h2><b>Horizontal Scrolling: </b></h2>
+                                <span>Follows Drilldown approach ( expands the informations shown on the main slide but return back to current slide parent).
+                                Drill-down enables user to narrow data selection through either setting data filters to specific dictionary values or/and achieve similar result by visually choosing regions (e.g. rectangles) on interactive charts, so only values associated with regions will stay in data selection. In 2nd case charts behave as filters and as such eliminating need for filters if user prefer to use only selection tools like mouse.
+                                </span>
+                                <span>User can jump between sub-slides (horizontal) if necessary using small icons in the bottom though, but cannot jump between pages(slides)</span>
+                                </br><br/>
+                                <h2><b>Vertical Scrolling:</b></h2>
+                                <span>Follows Interactive Slideshow. Allowing user to navigate through owner design approach</span>
+
+                                <br/><br/><br/>
+                                <h2 style="color:red;text-align:right">Click right Arrow now -></h2>
+                            </div>
+                        </di>
+                    </div>
+                    <div class="slide"><h1>US States Tax Collection & Trends Overview</h1>
+                        <h2>Data Source:<a href="https://www.kaggle.com/kiva/data-science-for-good-kiva-crowdfunding" target="_blank">Kiva CrowdFunding</a></h2>
+                        <div class="div">
+                                <a href="https://www.kaggle.com/kiva" target="_blank">Kiva.org</a> is an online crowdfunding platform to extend financial services to poor and financially excluded people around the world. Kiva lenders have provided over $1 billion dollars in loans to over 2 million people.
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="slide"><h1>About Data</h1>
+                        <h2>Data Preparation:</h2>
+                        <div class="div">
+                            <span>
+                                Upon data files downloaded from <a href="https://www.kaggle.com/kiva/data-science-for-good-kiva-crowdfunding" target="_blank">Kiva.org</a>, it was cleaned using Data Preparation tools and corrected as needed. Aggregation was done into separate files for easy and flexibility for better visualization in d3.js
+                            </span>
+                        
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section:2 Essay Section -->
+                <div class="section">
+                    <h1>Essay - Kiva CrowdFunding</h1>
+                    <div class="div">
+                        <h2>Charts:</h2>
+                        <span>
+                            <ul>
+                                <li>Funding Based</li>
+                                <li>Country Based</li>
+                            </ul>
+                        </span>
+                        <h2>Overview:</h2>
+                        <span>
+                            Upon partial analysis of the data, trying to showcase available datapoints into Data visualization for better understanding the crowdfunding with respect to timelines, sectors, country, partners etc.
+                            In this effort, i was able to concentrate on timelines, sectors, countries, partners and ignored many other data points that are available in the dataset. Below are the two approaches built to better convey the understanding.
+                        </span>
+                        <h2>Funding Based Charts</h2>
+                        <span>
+                            <ul>
+                                <li>
+
+                                </li>
+                            </ul>
+                        <span>
+                            
+                        </span>
+                        </span>
+
+                        <h2>Country Based Charts</h2>
+                        <span>
+                            
+                        </span>
+
+                    </div>
+                    
+                
+                </div>
+
+                <!--Section:3 Charts Section: Funding Amount Based -->
+                <div class="section">
+                    <div class="slide">
+                        <div class="divChart">
+                            <h2>Theme: Direct Vs Indirect Tax Collection</h2>
+                            <div class="svgChart" id="divChart3_1" >
+                                <div class="div">
+                                    Below chart displays the amount of funding dispersed by Kiva CrowdFunding in each of the month starting from 2014-Jan to 2017-July
+                                    Hover the chart to see the funding in each projected month. ( Note: There is a drop in July 2017 has there is no much data available or missing in the dataset)
+                                    <br/>
+                                    <span style="color:black"><b>Annotations:</b> Noticed that there is typical spike in March in each year except 2014. It might be because of typical year end to most of the countries.</span>
+                                </div>
+                                <svg id="svgChart3_1" width="960" height="650"></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide">
+                            <div class="divChart">
+                                <h2>Stacked Area Chart - Sector Funding</h2>
+                                <div class="svgChart" id="divChart3_2">
+                                    <div class="div">
+                                        Continuing the prior slide, this slide is expanded to show the funding dispersed in various sectors.
+                                        <br/>
+                                        <span>Used: schemeCategory20c for coloring Sectors</span>
+                                        <br/>
+                                        <span style="color:black"><b>Annotations:</b> Spikes in March is noticed espically from 2015 onwards.</span>
+                                        <svg id="svgChart3_2" width="960" height="700"></svg>
+                                    </br>
+                                        <div id="legend3_2"></div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                    </div>
+                    <div class="slide">
+                            <div class="divChart">
+                                <h2>Bar Chart - Sector Funding(Filters,Parametrized)</h2>
+                                <div class="svgChart" id="divChart3_3">
+                                    <div class="div">
+                                        Continuing the prior slide, this graph helps to view the content filtering parameterized selection of Sectors.
+                                        <br/>
+                                        <span>Used: schemeCategory20c for coloring Sectors</span>
+                                        <br/>
+                                        <span style="color:black"><b>Annotations:</b> Highest Funding and Lower Funding Sector</span>
+                                        <h3>
+                                            <div id="sectors" style="margin:10px"> </div>
+                                        </h3>
+                                         <p class="sectors_3">
+                                             <button id="bSubmit" onclick="javascript:Refresh_Chart3_3()" >Refresh Chart</button>
+                                         </p>
+
+                                        <svg id="svgChart3_3" width="960" height="700"></svg>
+                                    </br>
+                                        <div id="legend3_3"></div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                <!-- End of Section 3 -->
+
+                
+                <!--Section:4 Charts Section: Country Based -->
+                <div class="section">
+                    <div class="slide">
+                        <div class="divChart">
+                            <h2>Theme: Trend Analysis (Last 10 yrs)</h2>
+                            <div class="svgChart" id="divChart4_1" >
+                                <div class="div">
+                                    Below chart displays the amount of funding dispersed by Kiva CrowdFunding in each of the month starting from 2014-Jan to 2017-July
+                                    
+                                    <br/>
+                                    <span style="color:black"><b>Annotations:</b> Noticed that there is typical spike in March in each year except 2014. It might be because of typical year end to most of the countries.</span>
+                                    <br/>
+									                                        <h3>
+                                            <select id="selectState" onchange="drawChart41_1();"></select>
+                                        </h3>
+                                    <div class="legend6">
+                                        <h3>Legend</h3>
+                                        <div id="legend"></div>
+                                    </div>
+                                    <svg id="svgChart4_1" width="1100" height="700"></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide">
+                            <div class="divChart">
+                               
+                                <div class="svgChart" id="divChart4_2">
+                                    
+                                </div>
+                            </div>
+                    </div>
+                    <div class="slide">
+                            <div class="divChart">
+                                
+                                <div class="svgChart" id="divChart3_3">
+                                    
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                <!-- End of Section 4 -->
+
+
+
+            </div>
+
+    <!--div id="fullpage">
+            <div class="section active">Some section-1
+                    <div class="slide"> Slide 1 </div>
+                    <div class="slide"> Slide 2 </div>
+                    <div class="slide"> Slide 3 </div>
+                    <div class="slide"> Slide 4 </div>
+            </div>
+            <div class="section">Some section-2</div>
+            <div class="section">Some section-3</div>
+            <div class="section">Some section-4
+                    <div class="slide"> Slide 1 </div>
+                    <div class="slide"> Slide 2 </div>
+                    <div class="slide"> Slide 3 </div>
+                    <div class="slide"> Slide 4 </div>
+            </div>
+    </div-->
+    <input type="hidden" id="_4" value="3" />
+
+    <script>
+    new fullpage('#fullpage', {
+        //options here
+        autoScrolling:true,
+        scrollHorizontally: true,
+        //slidesNavigation:false,
+        //navigation:false,
+        licenseKey: "OPEN-SOURCE-GPLV3-LICENSE"
+    });
+    
+    //methods
+    //fullpage_api.setAllowScrolling(false);
+
+    
+     //Loading Data
+     
+    var parseTime = d3.timeParse("%Y-%b");
+    
+    var formatNumber = d3.format(".2f"),
+        formatMillion = function(x) { return formatNumber(x / 1e6) + "M"; };
+
+	var statesLabels = ["United States", "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", 
+						"Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa",
+						"Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi",
+						"Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina",
+						"North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee",
+						"Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"];
+    
+    var sectorLabels = ["Agriculture","Food","Retail","Services","Clothing","Education","Housing","Personal Use","Arts","Transportation","Health","Construction", "Manufacturing", "Entertainment", "Wholesale"];
+    var countryColors = ["#1b70fc", "#faff16", "#d50527", "#158940", "#f898fd", "#24c9d7", "#cb9b64", "#866888", "#22e67a", "#e509ae", "#9dabfa", "#437e8a", "#b21bff", "#ff7b91", "#94aa05", "#ac5906", "#82a68d", "#fe6616", "#7a7352", "#f9bc0f", "#b65d66", "#07a2e6", "#c091ae", "#8a91a7", "#88fc07", "#ea42fe", "#9e8010", "#10b437", "#c281fe", "#f92b75", "#07c99d", "#a946aa", "#bfd544", "#16977e", "#ff6ac8", "#a88178", "#5776a9", "#678007", "#fa9316", "#85c070", "#6aa2a9", "#989e5d", "#fe9169", "#cd714a", "#6ed014", "#c5639c", "#c23271", "#698ffc", "#678275", "#c5a121", "#a978ba", "#ee534e", "#d24506", "#59c3fa", "#ca7b0a", "#6f7385", "#9a634a", "#48aa6f", "#ad9ad0", "#d7908c", "#6a8a53", "#8c46fc", "#8f5ab8", "#fd1105", "#7ea7cf", "#d77cd1", "#a9804b", "#0688b4", "#6a9f3e", "#ee8fba", "#a67389", "#9e8cfe", "#bd443c", "#6d63ff", "#d110d5", "#798cc3", "#df5f83", "#b1b853", "#bb59d8", "#1d960c", "#867ba8", "#18acc9", "#25b3a7", "#f3db1d", "#938c6d", "#936a24", "#a964fb", "#92e460", "#a05787", "#9c87a0"];
+
+
+function hideAllCharts(){
+    d3.selectAll("svg")
+        .style("display", "none");
+
+    //d3.select("#svgChart1_1").style("display", "none");
+    //d3.select("#svgChart1_2").style("display", "none");
+    /*
+    eles = document.getElementsByClassName("svgChart");
+
+    for(var i=0;i< eles.length; i++) {
+        var element = document.getElementById(eles[i]);
+        element.style.display = "none";
+    }*/
+
+}
+
+              // Add the tooltip container to the vis container
+              // it's invisible and its position/contents are defined during mouseover
+              var tooltip = d3.select("#vis-container").append("div")
+                  .attr("class", "tooltip")
+                  .style("opacity", 0);
+
+function drawChart31_1() {
+
+    var svg = d3.select("#svgChart3_1"),
+        margin = {top: 60, right: 100, bottom: 60, left: 100},
+        width = +svg.attr("width") - margin.left - margin.right,
+        height = +svg.attr("height") - margin.top - margin.bottom,
+        canvas = svg.append("g")
+            .attr("class", "request")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+            d3.csv('data/2008.csv', function loadCallback(error, data) {
+			
+				var data1 = data.filter(function(row){return ((row['States'] != 'California') && (row['States'] != 'New York') && (row['States'] != 'United States'))}); 			
+                
+				data1.forEach(function(d) { // convert strings to numbers
+                    d.sgrt = +d['Sales and Gross Receipts Taxes'];
+                    d.it = +d['Income Taxes'];
+                });
+                makeVis(data1);
+            });
+
+          var makeVis = function(data) {
+              // Common pattern for defining vis size and margins
+              var margin = { top: 20, right: 20, bottom: 30, left: 40 },
+                  width  = 960 - margin.left - margin.right,
+                  height = 500 - margin.top - margin.bottom;
+
+              // Add the visualization svg canvas to the vis-container <div>
+              <!-- var canvas = d3.select("#vis-container").append("svg") -->
+                  <!-- .attr("width",  width  + margin.left + margin.right) -->
+                  <!-- .attr("height", height + margin.top  + margin.bottom) -->
+                <!-- .append("g") -->
+                  <!-- .attr("transform", "translate(" + margin.left + "," + margin.top + ")"); -->
+
+              // Define our scales
+              var colorScale = d3.scaleOrdinal(d3.schemeCategory20c);
+
+              <!-- var xScale = d3.scale.linear() -->
+                  <!-- .domain([ d3.min(data, function(d) { return d.sgrt; }) - 1, -->
+                            <!-- d3.max(data, function(d) { return d.sugar; }) + 1 ]) -->
+                  <!-- .range([0, width]); -->
+
+              <!-- var yScale = d3.scale.linear() -->
+                  <!-- .domain([ d3.min(data, function(d) { return d.calories; }) - 1, -->
+                            <!-- d3.max(data, function(d) { return d.calories; }) + 1 ]) -->
+                  <!-- .range([height, 0]); // flip order because y-axis origin is upper LEFT -->
+
+				var xScale = d3.scaleLinear()
+							.domain([ d3.min(data, function(d) { return d.sgrt; }) - 1,
+                            d3.max(data, function(d) { return d.sgrt +2.5e6; }) + 1 ])
+							 .rangeRound([0, width]);
+
+				var yScale = d3.scaleLinear()
+											.domain([ d3.min(data, function(d) { return d.it; }) - 1,
+                            d3.max(data, function(d) { return d.it +3e6; }) + 1 ])
+						.rangeRound([height, 0]);
+
+    var xAxis = d3.axisBottom(xScale);
+    var yAxis = d3.axisLeft(yScale);
+				  
+				  
+              <!-- // Define our axes -->
+              <!-- var xAxis = d3.svg.axis() -->
+                  <!-- .scale(xScale) -->
+                  <!-- .orient('bottom'); -->
+
+              <!-- var yAxis = d3.svg.axis() -->
+                  <!-- .scale(yScale) -->
+                  <!-- .orient('left'); -->
+
+              // Add x-axis to the canvas
+              canvas.append("g")
+                  .attr("class", "x axis")
+                  .attr("transform", "translate(0," + height + ")") // move axis to the bottom of the canvas
+                  .call(xAxis .ticks(20, "s"));
+				  
+                canvas.append("text")
+                  .attr("class", "label")
+                  .attr("x", width/2) // x-offset from the xAxis, move label all the way to the right
+                  .attr("y", height + margin.top + 20)    // y-offset from the xAxis, moves text UPWARD!
+                  .style("text-anchor", "middle") // right-justify text
+                  .text("Indirect Taxes");
+
+				  
+				  
+              // Add y-axis to the canvas		  
+				canvas.append("g")
+				  .attr("class", "y axis")
+				  .call(yAxis .ticks(20, "s"));
+
+				canvas.append("text")
+				  .attr("transform", "rotate(-90)")
+				  .attr("y", -margin.left-15)
+				  .attr("x",0 - (height / 2))
+				  .attr("dy", "1em")
+				  .attr("class", "label")
+				  .style("text-anchor", "end")
+				  .text("Direct Taxes");				  
+
+              // Add the tooltip container to the vis container
+              // it's invisible and its position/contents are defined during mouseover
+              var tooltip = d3.select("body").append("div")
+                  .attr("class", "tooltip")
+                  .style("opacity", 0);
+
+              // tooltip mouseover event handler
+              var tipMouseover = function(d) {
+                  var color = colorScale(d.States);
+                  var html  = d.States + "<br/>" +
+                              "<span style='color:" + color + ";'>" + d.sgrt + "</span><br/>" +
+                              "<b>" + d.it + "</b>";
+
+                  tooltip.html(html)
+                      .style("left", (d3.event.pageX + 15) + "px")
+                      .style("top", (d3.event.pageY - 28) + "px")
+                    .transition()
+                      .duration(200) // ms
+                      .style("opacity", .9) // started as 0!
+
+              };
+              // tooltip mouseout event handler
+              var tipMouseout = function(d) {
+                  tooltip.transition()
+                      .duration(300) // ms
+                      .style("opacity", 0); // don't care about position!
+              };
+
+              // Add data points!
+              canvas.selectAll(".dot")
+                .data(data)
+              .enter().append("circle")
+                .attr("r", 5.5) // radius size, could map to another data dimension
+                .attr("cx", function(d) { return xScale( d.sgrt ); })     // x position
+                .attr("cy", function(d) { return yScale( d.it ); })  // y position
+				.attr("fill", function(d, i){return countryColors[i];})
+                .on("mouseover", tipMouseover)
+                .on("mouseout", tipMouseout);
+				
+				
+				
+			var anot2 = canvas.append("text")
+			.attr("x", xScale(16951963))
+			.attr("y", yScale(14938327))
+			<!-- .attr("class","annotate") -->
+			.style("text-anchor", "middle")
+			.style("fill","red");
+			
+			anot2.append("tspan")
+			.attr("x",  xScale(16951963)-50)
+			.attr("dy","1.0em")
+			.text("2015 Mar Peak");
+			
+			anot2.append("tspan")
+			.attr("x",  xScale(16951963)-50)
+			.attr("dy","1.0em")
+			.text( d3.format(".2f")(14938327/1e6) + "M ($ 14938327)" );			
+          };
+		  
+
+
+
+}
+				  
+				  
+function drawChart3_1() {
+
+    hideAllCharts();
+    //d3.select("#divChart1").style("display", "block");
+    d3.select("#svgChart3_1").style("display", "block");
+    
+    var bisectDate = d3.bisector(function(d) { return d['Income Taxes']; }).left;
+
+    var svg = d3.select("#svgChart3_1"),
+        margin = {top: 60, right: 100, bottom: 60, left: 100},
+        width = +svg.attr("width") - margin.left - margin.right,
+        height = +svg.attr("height") - margin.top - margin.bottom,
+        g = svg.append("g")
+            .attr("class", "request")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    
+     //d3.select("#svgChart3_1").attr("align","center"); 
+    //svg.attr("transform", "translate(" + width/2 + "," + height + ")");
+
+    //svg.style("display","block");
+  // Add the clip path.
+    svg.append("clipPath")
+      .attr("id", "clip")
+    .append("rect")
+      .attr("width", width)
+      .attr("height", height);
+
+
+    var x = d3.scaleLinear()
+        .rangeRound([0, width]);
+
+    var y = d3.scaleLinear()
+        .rangeRound([height, 0]);
+
+    var xAxis = d3.axisBottom(x);
+    var yAxis = d3.axisLeft(y);
+
+    var area = d3.area()
+        .x(function(d) { return x(d['Sales and Gross Receipts Taxes']); })
+        .y1(function(d) { return y(d['Income Taxes']); });
+
+	d3.queue()
+		.defer(d3.csv, "data/2008.csv")
+		.defer(d3.csv, "data/2009.csv")
+		.await(combine);		
+	
+	function combine(error, t2008, t2009) {
+		if (error) {
+			console.log(error);
+		}
+		var data1 = d3.merge([t2008, t2009]);
+		
+		var data = data1.filter(function(row){return ((row['States'] != 'California') && (row['States'] != 'New York ') && (row['States'] != 'United States'))}); 
+		
+		var taxes = data.filter(function(row){return row['Year'] == '2008'}); 
+		
+		x.domain([0, d3.max(taxes, function(d) { return +d['Sales and Gross Receipts Taxes']+3e6; })]);
+		y.domain([0, d3.max(taxes, function(d) { return +d['Income Taxes']+3e6; })]);	
+
+		//breating space for y-axes helps to write more scale
+
+		//area.y0(y(0));
+
+		g.append("g")
+		  .attr("class", "x axis")
+		  .attr("transform", "translate(0," + height + ")")
+		  .call(xAxis .ticks(20, "s"))
+		.selectAll("text")
+			.attr("y", 10)
+			.attr("x", -10)
+			.attr("dy", ".35em")
+			//.attr("transform", "rotate(90)")
+			.style("text-anchor", "start");
+			//.style("fill", function(i) { return color(i); });
+
+		g.append("text")             
+			.attr("transform",
+			"translate(" + (width/2) + " ," + 
+							(height + margin.top ) + ")")
+			.style("text-anchor", "middle")
+			.attr("class", "label")
+			.text("Indirect Taxes");
+    
+		g.append("g")
+		  .attr("class", "axis")
+		  .call(yAxis .ticks(20, "s"));
+
+		g.append("text")
+		  .attr("transform", "rotate(-90)")
+		  .attr("y", -margin.left+45)
+		  .attr("x",0 - (height / 2))
+		  .attr("dy", "1em")
+		  .attr("class", "label")
+		  .style("text-anchor", "middle")
+		  .text("Direct Taxes");
+
+		<!-- g.append("path") -->
+			<!-- .datum(data) -->
+			<!-- .attr("fill", "steelblue") -->
+			<!-- .attr("class", "area") -->
+			<!-- .attr("d", area); -->
+
+		//g.append("g")
+		//    .attr("transform", "translate(0," + height + ")")
+		//    .call(d3.axisBottom(x));
+	   
+		// text label for the x axis
+		/*
+		g.append("text")             
+		  .attr("transform",
+				"translate(" + (width/2) + " ," + 
+							   (height + margin.top + 50) + ")")
+		  .style("text-anchor", "start")
+		  .attr("class", "label")
+		  .text("Quarters");
+		*/
+	  /*  g.append("g")
+			.call(d3.axisLeft(y) .ticks(20, "s"))
+			.append("text")
+			.attr("fill", "#000")
+			.attr("transform", "rotate(-90)")
+			//.attr("y", 6)
+			//.attr("dy", "0.71em")
+			//.attr("text-anchor", "end")
+			.attr("y", 0 - margin.left)
+			.attr("x",0 - (height / 2))
+			.attr("dy", "1em")
+			.attr("text-anchor", "middle")
+			.text("Funding Amount in Millions($)");
+	  */
+		var focus = g.append("g")
+		.attr("class", "focus")
+		.style("display", "none");
+
+		focus.append("line")
+			.attr("class", "x-hover-line hover-line")
+			.attr("y1", 0)
+			.attr("y2", height);
+
+		focus.append("line")
+			.attr("class", "y-hover-line hover-line")
+			.attr("x1", width)
+			.attr("x2", width);
+
+		focus.append("circle")
+			.attr("r", 7.5);
+
+		focus.append("text")
+			.attr("x", 15)
+			.attr("dy", ".31em");
+
+		svg.append("rect")
+			.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+			.attr("class", "overlay")
+			.attr("width", width)
+			.attr("height", height);
+			<!-- .on("mouseover", function() { focus.style("display", null); }) -->
+			<!-- .on("mouseout", function() { focus.style("display", "none"); }) -->
+			<!-- .on("mousemove", mousemove); -->
+              // Define our scales
+              var colorScale = d3.scaleOrdinal(d3.schemeCategory20c);
+		function mousemove() {
+		  var x0 = x.invert(d3.mouse(this)[0]),
+			  i = bisectDate(taxes, x0, 1),
+			  d0 = taxes[i - 1],
+			  d1 = taxes[i];
+			  
+		if (d1 != 'undefined') {	  
+			var d = x0 - d0['Sales and Gross Receipts Taxes'] > d1['Sales and Gross Receipts Taxes'] - x0 ? d1 : d0;
+		  focus.attr("transform", "translate(" + x(d['Sales and Gross Receipts Taxes']) + "," + y(d['Income Taxes']) + ")");
+		  focus.select("text").text(function() { return d3.format(".2f")(d['Sales and Gross Receipts Taxes']/1e6) + "M"; });
+		  focus.select(".x-hover-line").attr("y2", height - y(d['Income Taxes']));
+		  focus.select(".y-hover-line").attr("x2", width + width);
+		  }
+		}
+		
+              // tooltip mouseover event handler
+              var tipMouseover = function(d) {
+                  var color = colorScale(d.States);
+                  var html  = d.States + "<br/>" +
+                              "<span style='color:" + color + ";'>" + d['Sales and Gross Receipts Taxes'] + "</span><br/>" +
+                              "<b>" + d['Income Taxes'] + "</b> , <b/>";
+
+                  tooltip.html(html)
+                      .style("left", (d3.event.pageX + 15) + "px")
+                      .style("top", (d3.event.pageY - 28) + "px")
+                    .transition()
+                      .duration(200) // ms
+                      .style("opacity", .9) // started as 0!
+
+              };
+              // tooltip mouseout event handler
+              var tipMouseout = function(d) {
+                  tooltip.transition()
+                      .duration(300) // ms
+                      .style("opacity", 0); // don't care about position!
+              };		
+
+     //Each Highs 
+    /* var anot1 = g.append("text")
+        .attr("x", x(parseTime("2014-Oct")))
+        .attr("y", y(13046885)-50)
+        .attr("class","annotate")
+        .style("text-anchor", "middle");
+        
+        anot1.append("tspan")
+        .attr("x",  x(parseTime("2014-Oct")))
+        .attr("dy","1.0em")
+        .text("2014 Oct. Peak");
+        
+        anot1.append("tspan")
+        .attr("x",  x(parseTime("2014-Oct")))
+        .attr("dy","1.0em")
+        .text( d3.format(".2f")(13046885/1e6) + "M ($ 13046885)" ); */
+
+		var anot2 = canvas.append("text")
+			.attr("x", x(16951963)-50)
+			.attr("y", y(14938327)-50)
+			.attr("class","annotate")
+			.style("text-anchor", "middle");
+			
+			anot2.append("tspan")
+			.attr("x",  x(16951963)-50)
+			.attr("dy","1.0em")
+			.text("2015 Mar Peak");
+			
+			anot2.append("tspan")
+			.attr("x",  x(16951963)-50)
+			.attr("dy","1.0em")
+			.text( d3.format(".2f")(14938327/1e6) + "M ($ 14938327)" );
+
+		var anot3 = g.append("text")
+			.attr("x", x(parseTime("2016-Mar")))
+			.attr("y", y(14194975)-50)
+			.attr("class","annotate")
+			.style("text-anchor", "middle");
+			
+			anot3.append("tspan")
+			.attr("x",  x(parseTime("2016-Mar")))
+			.attr("dy","1.0em")
+			.text("2016 Mar Peak");
+			
+			anot3.append("tspan")
+			.attr("x",  x(parseTime("2016-Mar")))
+			.attr("dy","1.0em")
+			.text( d3.format(".2f")(14194975/1e6) + "M ($ 14194975)" );
+
+	   var anot4 = g.append("text")
+			.attr("x", x(parseTime("2017-Mar")))
+			.attr("y", y(16472800)-50)
+			.attr("class","annotate")
+			.style("text-anchor", "middle");
+			
+			anot4.append("tspan")
+			.attr("x",  x(parseTime("2017-Mar")))
+			.attr("dy","1.0em")
+			.text("2016 Mar Peak");
+			
+			anot4.append("tspan")
+			.attr("x",  x(parseTime("2017-Mar")))
+			.attr("dy","1.0em")
+			.text( d3.format(".2f")(16472800/1e6) + "M ($ 16472800)" );
+
+			//Scatter Plot for dots
+			g.append("g")
+				.selectAll("dot")
+					.data(taxes)
+					.enter()
+					.append("circle")
+					.attr("r", 6)
+					.attr("fill", function(d, i){return countryColors[i];})
+					.attr("cx", function(d) { return x(d['Sales and Gross Receipts Taxes']); })
+					.attr("cy", function(d) { return y(d['Income Taxes']); })
+					.on("mouseover", tipMouseover)
+					.on("mouseout", tipMouseout);
+					};
+}  // End of svgChart1
+
+
+function drawChart3_2() {
+
+
+}
+
+
+function loadData3_3(draw) {
+
+    d3.csv("data/finding_sector_bar.csv", type, function(error, data) {
+        
+        data.slice().reverse().forEach(function(item, index, object) {
+            var chkbox = document.getElementsByName(item.sector);
+
+            if(chkbox != "undefined" && chkbox != null && chkbox.length ==1 ){
+                if(chkbox[0].checked == true ) {
+                    object.sector = item.sector;
+                    object.funded_amount = +item.funded_amount;
+                } else if( chkbox[0].checked == false) {
+                // object.splice( index, 1);
+                data.splice(object.length - 1 - index, 1);
+                }
+            }
+    
+        });
+
+
+    if(draw) {
+        performDrawing_Chart3_3(data);
+    }
+    //return data;
+    });
+}
+
+function Refresh_Chart3_3() {
+
+    //Since not using clientside cache, reloading from csv (temporary)
+    // can be implemented with JQuery in storing in cache and loading as needed for filtering etc
+    //primaryData
+    //primaryData = loadData(false);
+
+    var newData;
+    loadData3_3(true);
+}
+
+function createControls_Chart3_3(){
+
+    var pDiv = document.getElementById("sectors");
+    
+    var newString = "";
+    for(var i=0; i< sectorLabels.length; i++) {
+        newString += '<div class="legend2"><input type="checkbox" checked id="chk' +i + '" name="'+ sectorLabels[i] + '" value="' + sectorLabels[i] + '"><label for="chk' + i + '">' + sectorLabels[i] + '</label></div>' ;
+    }
+    document.getElementById("sectors").innerHTML = newString;
+}
+
+function createControls_Chart4_1(){
+
+    var pSelect = document.getElementById("selectState");
+	pSelect.innerHTML = '';
+	//Create and append select list
+	<!-- var selectList = document.createElement("select"); -->
+	<!-- selectList.id = "statesSelect"; -->
+	<!-- pDiv.appendChild(selectList); -->
+
+	//Create and append the options
+	for (var i = 0; i < statesLabels.length; i++) {
+		var option = document.createElement("option");
+		option.value = statesLabels[i];
+		option.text = statesLabels[i];
+		pSelect.appendChild(option);
+	}
+}
+
+function type(d) {
+  d.funded_amount = +d.funded_amount;
+  return d;
+}
+
+function drawChart3_3() {
+
+    hideAllCharts();
+
+    d3.select("#svgChart3_3").style("display", "block");
+
+    createControls_Chart3_3();
+    loadData3_3(true);
+
+
+    /* var tooltip = d3.select("body")
+        .append("div")
+        //.style("position", "absolute")
+        .style("position", "absolute")
+        .style("top","7%")
+        .style("left","22%")
+        .style("height", "20px")
+        .style("width", "200px")
+        .style("background-color", "gray")
+        .style("color", "white")
+        .style("z-index", "100")
+        .style("visibility", "hidden")
+        .text("Most funding Sector: Agriculture");
+
+        //tooltip.style("visibility", "visible");
+        tooltip.style("visibility", "hidden"); */
+}
+
+function performDrawing_Chart3_3(myData) {
+
+    var svg = d3.select("#svgChart3_3"),
+        margin = {top: 60, right: 100, bottom: 120, left: 100},
+        width = +svg.attr("width") - margin.left - margin.right,
+        height = +svg.attr("height") - margin.top - margin.bottom;
+
+    //svg.select("#svgg").selectAll("*").remove();
+    svg.selectAll("*").remove();
+
+    g = svg.append("g")
+        .attr("class", "request")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+    var x = d3.scaleBand()
+            .rangeRound([0,width])
+            .paddingInner(0.05);
+
+    var y = d3.scaleLinear()
+        .range([height, 0]);
+
+    var colorScale = d3.scaleOrdinal(d3.schemeCategory10);
+
+    var xAxis = d3.axisBottom(x);
+    //var yAxis = d3.axisLeft(y).tickFormat(function(d){ return d;});
+    var yAxis = d3.axisLeft()
+        .scale(y)
+        .tickFormat(formatMillion);
+
+    var div = d3.select("body").append("div")   
+        .attr("class", "tooltip")               
+        .style("opacity", 0);
+
+    yDomainBar = myData.map(function(d) { return d.funded_amount; });
+
+    x.domain(myData.map(function(d) { return d.sector; }));
+    //y.domain([0, d3.max(yDomainBar)]);
+    y.domain([0, d3.max(myData, function(d) { return d.funded_amount; })+10000000]);
+    //adding 10M to draw one more y ticks in the graph
+    
+    
+    g.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis)
+        .selectAll("text")
+        .attr("y", 10)
+        .attr("x", 9)
+        .attr("dy", ".35em")
+        .attr("transform", "rotate(45)")
+        .attr("data-legend",function(d) { return d.sector})
+        .style("text-anchor", "start");
+
+    g.append("g")
+        //.attr("transform", "translate(" + x(0) + ",0)")   
+        .attr("class", "axis")
+        .attr("y", 0)
+        .attr("x", 0)
+        .call(yAxis .ticks(20, "s"));
+
+        // text label for the x axis
+    g.append("text")             
+        .attr("transform",
+                "translate(" + (width/2) + " ," + 
+                            (height + margin.top) + ")")
+        .style("text-anchor", "middle")
+        .attr("class", "label")
+        .text("Sectors");
+
+    // text label for the y axis
+    g.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0 - margin.left)
+        .attr("x",0 - (height / 2))
+        .attr("dy", "1em")
+        .attr("class", "label")
+        .style("text-anchor", "middle")
+        .text("Funding Amount in Millions ($)"); 
+
+    //var formatValue = d3.format(".2"); 
+
+    g.selectAll("rect")
+        .data(myData)
+        .enter()
+        .append("rect")
+        .attr("class", "rectbar")
+        .attr("x", function(d) { return x(d.sector); })
+        .attr("width", x.bandwidth())
+        .attr("y", function(d) { return y(d.funded_amount); })
+        .attr("height", function(d) { return height - y(d.funded_amount); })
+        .attr("fill", function(d,i) { return colorScale(d.sector);} )
+        //.attr("fill", function(d,i) {
+        //	return "rgb(0, " +  (i+1) * 20 +", " + (i+5) * 20 + ")";
+            //return "rgb(0, 0, " + 221 + ")";
+        // })
+        .on('click', function() {
+                //sortBars();
+            })
+        /* .on('hover', function() {
+            div.transition()
+                .duration(100)
+                .style("fill", "yellowgreen");
+        }) */
+        .on("mouseover", function(d) {      
+            div.transition()        
+                .duration(200)      
+                .style("opacity", .9);      
+            //div .html(formatTime(d.date) + "<br/>"  + d.close)  
+            div .html("<b>Sector:</b>" + d.sector + "<br/><b>Funded Amount</b>:"  + formatMillion(d.funded_amount))
+                .style("left", (d3.event.pageX) + "px")     
+                .style("top", (d3.event.pageY - 28) + "px");    
+            
+            })                  
+        .on("mouseout", function(d) {       
+            div.transition()        
+                .duration(500)      
+                .style("opacity", 0);   
+        })
+
+        
+        var chkbox0 = document.getElementById("chk0");
+        var anot1text = document.getElementById("anot1text");
+        if(anot1text != "undefined" && anot1text != null) {
+            anot1text.style.display = "none";
+        }
+
+        if(chkbox0 != "undefined" && chkbox0 != null ){
+            if(chkbox0.checked == true ) {
+            //Annotations
+            var anot1 = g.append("text")
+                .attr("id", "anot1text")
+                .attr("x", x("Agriculture")+100)
+                .attr("y", y(133770635))
+                .attr("class","annotate")
+                .style("text-anchor", "middle");
+            
+            anot1.append("tspan")
+                .attr("x",  x("Agriculture")+100)
+                .attr("dy","1.0em")
+                .text("Highest funded Sector: Agriculture");
+            
+            anot1.append("tspan")
+                .attr("x",  x("Agriculture")+100)
+                .attr("dy","1.0em")
+                .text( formatMillion(133770635) + "($ 133770635)" );
+
+                d3.select("#anot1text").style("display", "block");
+
+            }
+
+        }
+        
+        var chkbox14 = document.getElementById("chk14");
+        var anot2text = document.getElementById("anot2text");
+        if(anot2text != "undefined" && anot2text != null) {
+            anot2text.style.display = "none";
+        } 
+
+        if(chkbox14 != "undefined" && chkbox14 != null ){
+            if(chkbox14.checked == true ) {
+            //Annotations
+            var anot2 = g.append("text")
+                .attr("id", "anot2text")
+                .attr("x", x("Wholesale"))
+                .attr("y", y(918900)-50)
+                .attr("class","annotate")
+                .style("text-anchor", "middle");
+                
+                anot2.append("tspan")
+                .attr("x",  x("Wholesale"))
+                .attr("dy","1.0em")
+                .text("Lowest funded Sector: Wholesale");
+                
+                anot2.append("tspan")
+                .attr("x",  x("Wholesale"))
+                .attr("dy","1.0em")
+                .text( formatMillion(918900) + "($ 918900)" );
+
+                d3.select("#anot2text").style("display", "block");
+            }
+
+        }
+
+
+        
+
+
+
+
+    }
+
+
+
+//Section 4
+
+function loadData_4() {
+  
+    
+    
+}
+
+
+function drawLegend4_1(xDomain) {
+    var legend = document.getElementById("legend");
+    var newString = "";
+    //<div class="legend2"> <p class="country-name"><span class="key-dot"></span>Agriculture</p> </div>
+    for(var i=0; i< xDomain.length; i++) {
+        //newString += '<span id=L' + i + "'>" + xDomain[i] + "</span>" ;
+        //newString += '<div class="legend2"> <p class="country-name"><span class="key-dot" style="background:' + countryColors[i] + '"></span>' + xDomain[i] + '</p> </div>';
+        newString += '<div class="legend2"><span class="key-dot" style="background:' + countryColors[i] + '"></span>' + xDomain[i] + '</div>';
+    }
+    document.getElementById("legend").innerHTML = newString;
+}
+
+
+function drawChart41_1() {
+d3.selectAll("svg > *").remove();
+    var selectState = document.getElementById("selectState");
+	
+	var svg = d3.select("#svgChart4_1"),
+		margin = {top: 20, right: 20, bottom: 30, left: 40},
+		width = +svg.attr("width") - margin.left - margin.right,
+		height = +svg.attr("height") - margin.top - margin.bottom,
+		g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+		
+	var parseTime = d3.timeParse("%Y");
+		
+	var xScale = d3.scaleTime()
+		.rangeRound([0, width]);
+
+	var yScale = d3.scaleLinear()
+		.rangeRound([height, 0]);
+
+	var line1 = d3.line()
+		.x(function(d) { return xScale(d.year); })
+		.y(function(d) { return yScale(d.sgrt); });
+		
+	var line2 = d3.line()
+		.x(function(d) { return xScale(d.year); })
+		.y(function(d) { return yScale(d.it); });
+		
+	var line3 = d3.line()
+		.x(function(d) { return xScale(d.year); })
+		.y(function(d) { return yScale(d.pt); });
+
+	d3.queue()
+		.defer(d3.csv, "data/2008.csv")
+		.defer(d3.csv, "data/2009.csv")
+		.defer(d3.csv, "data/2010.csv")
+		.defer(d3.csv, "data/2011.csv")
+		.defer(d3.csv, "data/2012.csv")
+		.defer(d3.csv, "data/2013.csv")
+		.defer(d3.csv, "data/2014.csv")
+		.defer(d3.csv, "data/2015.csv")
+		.defer(d3.csv, "data/2016.csv")
+		.defer(d3.csv, "data/2017.csv")
+		.await(combine);	
+
+	function combine(error, t2008, t2009, t2010, t2011, t2012, t2013, t2014, t2015, t2016, t2017) {
+		if (error) { console.log(error); }
+		
+		var dataAll = d3.merge([t2008, t2009, t2010, t2011, t2012, t2013, t2014, t2015, t2016, t2017]);
+	
+		//var data1 = dataAll.filter(function(row){return ((row['States'] != 'California') && (row['States'] != 'New York') && (row['States'] != 'United States'))}); 			
+		
+		data = dataAll.filter(function(row){return row['States'] == selectState[selectState.selectedIndex].value}); 
+		
+		data.forEach(function(d) { // convert strings to numbers
+			d.sgrt = +d['Sales and Gross Receipts Taxes'];
+			d.it = +d['Income Taxes'];
+			d.pt = +d['Property Taxes'];
+			d.year = parseTime(+d.Year); });
+		
+		data.sort(function(a, b) {return d3.ascending(a.year, b.year)});
+
+		makeVis(data);};
+
+		var makeVis = function(data) {
+
+			xScale.domain(d3.extent(data, function(d) {return d.year;}));
+			yScale.domain([ d3.min(data, function(d) { return (d.sgrt < d.it) ? ((d.sgrt < d.pt) ? d.sgrt : d.pt) : ((d.it < d.pt) ? d.it : d.pt);}), 
+			d3.max(data, function(d) { return (d.sgrt > d.it) ? ((d.sgrt > d.pt) ? d.sgrt : d.pt) : ((d.it > d.pt) ? d.it : d.pt);})]);
+				 
+			g.append("g")
+			  .attr("transform", "translate(0," + height + ")")
+			  .call(d3.axisBottom(xScale));
+
+			g.append("g")
+			  .call(d3.axisLeft(yScale) .ticks(20, "s"))
+			.append("text")
+			  .attr("fill", "#000")
+			  .attr("transform", "rotate(-90)")
+			  .attr("y", 6)
+			  .attr("dy", "0.71em")
+			  .attr("text-anchor", "end")
+			  .text("Value ($)");
+
+			g.append("path")
+			  .datum(data)
+			  .attr("fill", "none")
+			  .attr("stroke", "steelblue")
+			  .attr("stroke-linejoin", "round")
+			  .attr("stroke-linecap", "round")
+			  .attr("stroke-width", 1.5)
+			  .attr("d", line1);
+		  
+			g.append("path")
+			  .datum(data)
+			  .attr("fill", "none")
+			  .attr("stroke", "green")
+			  .attr("stroke-linejoin", "round")
+			  .attr("stroke-linecap", "round")
+			  .attr("stroke-width", 1.5)
+			  .attr("d", line2);
+
+			g.append("path")
+			  .datum(data)
+			  .attr("fill", "none")
+			  .attr("stroke", "red")
+			  .attr("stroke-linejoin", "round")
+			  .attr("stroke-linecap", "round")
+			  .attr("stroke-width", 1.5)
+			  .attr("d", line3);
+		};
+	}
+
+function drawChart4_1() {
+
+
+    var div = d3.select("body").append("div")   
+        .attr("class", "tooltip")               
+        .style("opacity", 0);
+
+    var svg = d3.select("#svgChart4_1"),
+        margin = {top: 10, right: 10, bottom: 70, left: 60},
+        width = +svg.attr("width") - margin.left - margin.right,
+        height = +svg.attr("height") - margin.top - margin.bottom;
+
+    g = svg.append("g")
+        .attr("class", "request")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  
+    //d3.csv("data/country_funding_sector1.csv", function(error, data1) {
+    d3.csv("data/country_sector_partners_count.csv", function(error, data1) {
+        data1.forEach(function(d) {
+            d.country = d.country;
+            d.funded_amount = +d.funded_amount;
+            d.partners=+d.partners;
+            d.sectors=+d.sectors;
+    });
+
+    //data1.sort(function(a, b) { return b.funding_amount - a.funding_amount; });
+
+    var x1 = d3.scaleBand()
+            .rangeRound([0,width])
+            .paddingInner(0.05);
+
+    var color = d3.scaleOrdinal()
+        .range(countryColors)
+
+    var y1 = d3.scaleLinear()
+        .range([height, 0]);
+
+    var xAxis1 = d3.axisBottom()
+        .scale(x1);
+
+    //var yAxis = d3.axisLeft(y).tickFormat(function(d){ return d;});
+    var yAxis1 = d3.axisLeft()
+        .scale(y1)
+        .tickFormat(formatMillion);
+
+
+    xDomain = data1.map(function(d) { return d.country; });
+    //yDomainBar = data.map(function(d) { return d.sectors; });
+    yDomainBar = data1.map(function(d) { return +d.funded_amount; });
+    //yDomainLine =  data.map(function(d) { return d.partners; });
+
+    x1.domain(xDomain);
+    //y.domain([0, d3.max(data, function(d) { return d.sectors; })]);
+    y1.domain([0, d3.max(yDomainBar)]);
+
+    var legend = document.getElementById("legend");
+    var newString = "";
+    //<div class="legend2"> <p class="country-name"><span class="key-dot"></span>Agriculture</p> </div>
+    for(var i=0; i< xDomain.length; i++) {
+        //newString += '<span id=L' + i + "'>" + xDomain[i] + "</span>" ;
+        //newString += '<div class="legend2"> <p class="country-name"><span class="key-dot" style="background:' + countryColors[i] + '"></span>' + xDomain[i] + '</p> </div>';
+        newString += '<div class="legend2"><span class="key-dot" style="background:' + countryColors[i] + '"></span>' + xDomain[i] + '</div>';
+    }
+    document.getElementById("legend").innerHTML = newString;
+    
+
+    g.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis1)
+        .selectAll("text")
+        .attr("y", 0)
+        .attr("x", 9)
+        .attr("dy", ".35em")
+        .attr("transform", "rotate(90)")
+        .style("text-anchor", "start");
+
+  g.append("g")
+      //.attr("transform", "translate(" + x(0) + ",0)")   
+      .attr("class", "axis")
+      .call(yAxis1);
+
+    // text label for the x axis
+  g.append("text")             
+      .attr("transform",
+            "translate(" + (width/2) + " ," + 
+                           (height + margin.top + 50) + ")")
+      .style("text-anchor", "middle")
+      .attr("class", "label")
+      .text("Countries");
+
+    // text label for the y axis
+    g.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", -margin.left)
+      .attr("x",0 - (height / 2))
+      .attr("dy", "1em")
+      .attr("class", "label")
+      .style("text-anchor", "middle")
+      .text("Funded Amount in Millions(M)"); 
+
+    g.selectAll("rect")
+      .data(data1)
+        .enter()
+        .append("rect")
+      //.attr("class", "bar")
+      .attr("x", function(d) { return x1(d.country); })
+      .attr("width", x1.bandwidth())
+      .attr("y", function(d) { return y1(d.funded_amount); })
+      .attr("height", function(d) { return height - y1(d.funded_amount); })
+      .attr("fill", function(d,i) {
+	        //return "rgb(0, " +  (i+1) * 5 +", " + (i+5) * 3 + ")";
+            return color(i);
+        //return "rgb(0, 0, " + 221 + ")";
+      })
+      .each(function(d,i) {
+        var header = d3.select(this);
+        if( i == 34 ) {
+             //59 - phi
+             //34 Kenya
+            //header.append(anno);
+            var annot1 = g.append("g")
+
+            annot1.append("defs")
+                .append("marker")
+                .attr("id", "triangle")	
+                .attr("viewBox", "0 -5 10 10")
+                .attr("refX", 6)
+                .attr("refY", 0)
+                .attr("markerWidth", 8)
+                .attr("markerHeight", 10)
+                .attr("orient", "auto")
+                .append("path")
+                .attr("d", "M0,-5L10,0L0,5")
+                .style("stroke", "orange")
+                .attr("class","arrowHead");
+            //.attr("d", "M2,2 L2,11 L10,6 L2,2");
+
+                
+            annot1.append("line")
+                .attr("x1",  header.attr("x"))
+                .attr("y1",  header.attr("y"))
+                .attr("x2",  header.attr("x")-12)
+                .attr("y2", header.attr("y")-22)
+                .attr("stroke-width", 2)
+                .attr("stroke", "orange")
+                .attr("marker-end", "url(#triangle)");
+
+            var annot1_1 = g.append("text")
+                .attr("x", x1("Kenya"))
+                .attr("y", y1(32248405)-50)
+                .attr("class","annotate")
+                .style("text-anchor", "middle");
+                
+                annot1_1.append("tspan")
+                .attr("x",  x1("Kenya"))
+                .attr("dy","1.0em")
+                .text("Second Highest funded Country: Kenya");
+                
+                annot1_1.append("tspan")
+                .attr("x",  x1("Kenya"))
+                .attr("dy","1.0em")
+                .text( formatMillion(32248405) + "($ 32248405)" );
+
+        } 
+        else if(i==59) {
+             //59 - phi
+             //34 Kenya
+            //header.append(anno);
+            var annot1 = g.append("g")
+
+            annot1.append("defs")
+                .append("marker")
+                .attr("id", "triangle1")	
+                .attr("viewBox", "0 -5 10 10")
+                .attr("refX", 6)
+                .attr("refY", 0)
+                .attr("markerWidth", 8)
+                .attr("markerHeight", 10)
+                .attr("orient", "auto")
+                .append("path")
+                .attr("d", "M0,-5L10,0L0,5")
+                .style("stroke", "orange")
+                .attr("class","arrowHead");
+            //.attr("d", "M2,2 L2,11 L10,6 L2,2");
+                
+            annot1.append("line")
+            .attr("x1",  header.attr("x"))
+            .attr("y1",  header.attr("y")+10)
+            .attr("x2",  header.attr("x")-20)
+            .attr("y2", header.attr("y")+100)
+            .attr("stroke-width", 2)
+            .attr("stroke", "orange")
+            .attr("marker-end", "url(#triangle1)");
+
+            var annot1_1 = g.append("text")
+                .attr("x", x1("Philippines"))
+                .attr("y", y1(54476375)+100)
+                .attr("class","annotate")
+                .style("text-anchor", "middle");
+                
+                annot1_1.append("tspan")
+                .attr("x",  x1("Philippines"))
+                .attr("dy","1.0em")
+                .text("Highest funded Country: Philippines");
+                
+                annot1_1.append("tspan")
+                .attr("x",  x1("Philippines"))
+                .attr("dy","1.0em")
+                .text( formatMillion(54476375) + "($ 54476375)" );
+        }
+    
+      })
+      .on("mouseover", function(d) {      
+            div.transition()        
+                .duration(200)      
+                .style("opacity", .9);      
+            //div .html(formatTime(d.date) + "<br/>"  + d.close)  
+            //div .html("<b>Country:</b>" + d.country + "<br/><b>Sectors Count</b>:"  + d.sectors)  
+            div .html("<b>Country:</b>  " + d.country + "<br/><b>Partners Count</b>:    "  + d.partners + "<br/><b>Sectors Count</b>:   "  + d.sectors + "<br/> <b>Funding:</b> $" + formatMillion(d.funded_amount) )
+                .style("left", (d3.event.pageX) + "px")     
+                .style("top", (d3.event.pageY - 28) + "px");    
+            
+            })
+        .on("mouseout", function(d) {       
+            div.transition()        
+                .duration(500)      
+                .style("opacity", 0);   
+        });
+
+
+
+    });
+}
+
+
+function drawChart4_2() {
+
+
+
+}
+
+function drawChart4_3() {
+   
+ 
+}
+    </script>
+
+</body>
+</html>
