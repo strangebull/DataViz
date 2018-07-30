@@ -280,81 +280,42 @@
                     <div class="slide">
                         <di class="intro">
                             <h1>US States Tax Collection & Trends</h1>
-                            <h3 style="text-align: right; margin-right:120px;">Storytelling with Interactive Data Visualization</h3>
+                            <h3 style="text-align: center; margin-right:120px;">Storytelling with Interactive Data Visualization</h3>
                                 <br/>
                             <div class="div">
                                 <h2 style="margin-left:-40px"><b>Approach:</b> </h2>
-                                <span>Following the Hybrid Model of Data visualization starting with Interactive slideshow and then drilldown approach for each slide.</span>
+                                <span><br>Following is the data visualization with Interactive slideshow.</span>
                                 <br/><br/>
-
-                                <h2 style="margin-left:-40px"><b>Rules: </b></h2>
-
-                                <h2><b>Horizontal Scrolling: </b></h2>
-                                <span>Follows Drilldown approach ( expands the informations shown on the main slide but return back to current slide parent).
-                                Drill-down enables user to narrow data selection through either setting data filters to specific dictionary values or/and achieve similar result by visually choosing regions (e.g. rectangles) on interactive charts, so only values associated with regions will stay in data selection. In 2nd case charts behave as filters and as such eliminating need for filters if user prefer to use only selection tools like mouse.
-                                </span>
-                                <span>User can jump between sub-slides (horizontal) if necessary using small icons in the bottom though, but cannot jump between pages(slides)</span>
-                                </br><br/>
-                                <h2><b>Vertical Scrolling:</b></h2>
-                                <span>Follows Interactive Slideshow. Allowing user to navigate through owner design approach</span>
-
-                                <br/><br/><br/>
-                                <h2 style="color:red;text-align:right">Click right Arrow now -></h2>
-                            </div>
-                        </di>
-                    </div>
-                    <div class="slide"><h1>US States Tax Collection & Trends Overview</h1>
-                        <h2>Data Source:<a href="https://www.kaggle.com/kiva/data-science-for-good-kiva-crowdfunding" target="_blank">Kiva CrowdFunding</a></h2>
-                        <div class="div">
-                                <a href="https://www.kaggle.com/kiva" target="_blank">Kiva.org</a> is an online crowdfunding platform to extend financial services to poor and financially excluded people around the world. Kiva lenders have provided over $1 billion dollars in loans to over 2 million people.
-                            </span>
-                        </div>
-                    </div>
-                    
-                    <div class="slide"><h1>About Data</h1>
-                        <h2>Data Preparation:</h2>
-                        <div class="div">
-                            <span>
-                                Upon data files downloaded from <a href="https://www.kaggle.com/kiva/data-science-for-good-kiva-crowdfunding" target="_blank">Kiva.org</a>, it was cleaned using Data Preparation tools and corrected as needed. Aggregation was done into separate files for easy and flexibility for better visualization in d3.js
-                            </span>
-                        
+                                <h2 style="margin-left:-40px"><b>DataSource:   </b></h2><span><br><a href="https://www.census.gov/programs-surveys/stc.html" target="_blank">State Government Tax Collections (STC)</a></span>
+								<br/><br/>
+                                <h2 style="margin-left:-40px"><b>Data Preparation:</b> </h2>
+                                <span><br>The dataset contains annual state government tax collection (under various categories) from last 10 years (2008-2017). There is a separate excel (.xls) file for each year, and unfortunately data is in different format in files. Also, for states which has no tax collection under 
+								particular category (for ex. WA doesn't have income tax), the data is denoted a 'X' in some sheets whereas it is denoted as 0 in others.<br>
+								I used excel to clean data. Replaced 'X' with 0 and used 'transpose' functionality of excel to changes rows to columns. In some sheets I edited manually to bring data to right format.
+								</span>
+                                <br/><br/>								
                         </div>
                     </div>
                 </div>
 
                 <!-- Section:2 Essay Section -->
                 <div class="section">
-                    <h1>Essay - Kiva CrowdFunding</h1>
+                    <h1>Essay - US States Tax Collection</h1>
                     <div class="div">
-                        <h2>Charts:</h2>
+                        <h2>Overview:</h2><br>
+                        <span>
+							In a healthy economic society, Indirect taxes should be much less than Direct taxes in comparision. Year over year trend of tax collection can give us the gap between these two taxes and hints on what is happening in the society. For example,
+							if the Income tax collection is increasing while Sales tax collection remain same, it can be inferred that median income of residents of states is increasing. However, if property tax collection remain same, it can be inferred that people are investing
+							outside the state or spending in other activities than property.<br><br>
+                            I found CA, NY and TX to be the highest tax collectors, though not being the largest states. Also, correlating two categories like income tax and property tax, I found some interesting patterns like, for example, in CA, property tax is less in comparison with income taxes whereas, in WA, it is more, though CA is more expensive than WA.<br>
+                        <br></span><br>
+                        <h2>Charts:</h2><br>
                         <span>
                             <ul>
-                                <li>Funding Based</li>
-                                <li>Country Based</li>
-                            </ul>
-                        </span>
-                        <h2>Overview:</h2>
-                        <span>
-                            Upon partial analysis of the data, trying to showcase available datapoints into Data visualization for better understanding the crowdfunding with respect to timelines, sectors, country, partners etc.
-                            In this effort, i was able to concentrate on timelines, sectors, countries, partners and ignored many other data points that are available in the dataset. Below are the two approaches built to better convey the understanding.
-                        </span>
-                        <h2>Funding Based Charts</h2>
-                        <span>
-                            <ul>
-                                <li>
-
-                                </li>
-                            </ul>
-                        <span>
-                            
-                        </span>
-                        </span>
-
-                        <h2>Country Based Charts</h2>
-                        <span>
-                            
-                        </span>
-
+                                <li>- Direct vs Indirect Taxes Scatter plot of all States, except NY and CA</li>
+                                <li>- Income, Property & Sales Tax Line chart per State</li>
+                            </ul><br>
+                        </span>						
                     </div>
                     
                 
@@ -364,60 +325,15 @@
                 <div class="section">
                     <div class="slide">
                         <div class="divChart">
-                            <h2>Theme: Direct Vs Indirect Tax Collection</h2>
+                            <h2>Theme: Direct Vs Indirect Tax Collection (2017)</h2>
                             <div class="svgChart" id="divChart3_1" >
                                 <div class="div">
-                                    Below chart displays the amount of funding dispersed by Kiva CrowdFunding in each of the month starting from 2014-Jan to 2017-July
-                                    Hover the chart to see the funding in each projected month. ( Note: There is a drop in July 2017 has there is no much data available or missing in the dataset)
+                                    Below chart displays the overall standing of US States in comparision of Direct and Indirect Taxes in 2017. Hover the chart to see the tax collection for each state.
                                     <br/>
-                                    <span style="color:black"><b>Annotations:</b> Noticed that there is typical spike in March in each year except 2014. It might be because of typical year end to most of the countries.</span>
                                 </div>
                                 <svg id="svgChart3_1" width="960" height="650"></svg>
                             </div>
                         </div>
-                    </div>
-                    <div class="slide">
-                            <div class="divChart">
-                                <h2>Stacked Area Chart - Sector Funding</h2>
-                                <div class="svgChart" id="divChart3_2">
-                                    <div class="div">
-                                        Continuing the prior slide, this slide is expanded to show the funding dispersed in various sectors.
-                                        <br/>
-                                        <span>Used: schemeCategory20c for coloring Sectors</span>
-                                        <br/>
-                                        <span style="color:black"><b>Annotations:</b> Spikes in March is noticed espically from 2015 onwards.</span>
-                                        <svg id="svgChart3_2" width="960" height="700"></svg>
-                                    </br>
-                                        <div id="legend3_2"></div>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                    </div>
-                    <div class="slide">
-                            <div class="divChart">
-                                <h2>Bar Chart - Sector Funding(Filters,Parametrized)</h2>
-                                <div class="svgChart" id="divChart3_3">
-                                    <div class="div">
-                                        Continuing the prior slide, this graph helps to view the content filtering parameterized selection of Sectors.
-                                        <br/>
-                                        <span>Used: schemeCategory20c for coloring Sectors</span>
-                                        <br/>
-                                        <span style="color:black"><b>Annotations:</b> Highest Funding and Lower Funding Sector</span>
-                                        <h3>
-                                            <div id="sectors" style="margin:10px"> </div>
-                                        </h3>
-                                         <p class="sectors_3">
-                                             <button id="bSubmit" onclick="javascript:Refresh_Chart3_3()" >Refresh Chart</button>
-                                         </p>
-
-                                        <svg id="svgChart3_3" width="960" height="700"></svg>
-                                    </br>
-                                        <div id="legend3_3"></div>
-                                    </div>
-                                    
-                                </div>
-                            </div>
                     </div>
                 </div>
                 <!-- End of Section 3 -->
@@ -427,41 +343,23 @@
                 <div class="section">
                     <div class="slide">
                         <div class="divChart">
-                            <h2>Theme: Trend Analysis (Last 10 yrs)</h2>
+                            <h2>Theme: Income, Property & Sales Tax Per State</h2>
+							<h3>Trend Analysis (Last 10 yrs)</h3>
                             <div class="svgChart" id="divChart4_1" >
                                 <div class="div">
-                                    Below chart displays the amount of funding dispersed by Kiva CrowdFunding in each of the month starting from 2014-Jan to 2017-July
+                                    Below chart displays the trend analysis of three taxes: Direct, Indirect and Property Tax Per State for last 10 years.<br>
                                     
-                                    <br/>
-                                    <span style="color:black"><b>Annotations:</b> Noticed that there is typical spike in March in each year except 2014. It might be because of typical year end to most of the countries.</span>
-                                    <br/>
-									                                        <h3>
-                                            <select id="selectState" onchange="drawChart41_1();"></select>
-                                        </h3>
-                                    <div class="legend6">
-                                        <h3>Legend</h3>
-                                        <div id="legend"></div>
-                                    </div>
+                                   <span style="color:black;font-size:12px">Notice that in Illinois, where Income tax collection is decreasing sharply sincel 2014, whereas Sales tax collection has increased sharply, 
+									and property tax remain almost same. It can be inferred from this that people with high income are moving out-of-state (for different reasons) whereas move people with low income 
+									are moving in (hence Sales tax collection increase).</span>
+                                    <br/><br/>
+									    <h3> Choose a State here: <select id="selectState" onchange="drawChart41_1();"></select>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+                                        Legend:&nbsp;&nbsp; <span style="color:steelblue;font-size:15px">Indirect Tax</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:green;font-size:15px">Direct Tax</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:red;font-size:15px">Property Tax</span>
+                                    </h3>
                                     <svg id="svgChart4_1" width="1100" height="700"></svg>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="slide">
-                            <div class="divChart">
-                               
-                                <div class="svgChart" id="divChart4_2">
-                                    
-                                </div>
-                            </div>
-                    </div>
-                    <div class="slide">
-                            <div class="divChart">
-                                
-                                <div class="svgChart" id="divChart3_3">
-                                    
-                                </div>
-                            </div>
                     </div>
                 </div>
                 <!-- End of Section 4 -->
@@ -517,7 +415,7 @@
 						"Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"];
     
     var sectorLabels = ["Agriculture","Food","Retail","Services","Clothing","Education","Housing","Personal Use","Arts","Transportation","Health","Construction", "Manufacturing", "Entertainment", "Wholesale"];
-    var countryColors = ["#1b70fc", "#faff16", "#d50527", "#158940", "#f898fd", "#24c9d7", "#cb9b64", "#866888", "#22e67a", "#e509ae", "#9dabfa", "#437e8a", "#b21bff", "#ff7b91", "#94aa05", "#ac5906", "#82a68d", "#fe6616", "#7a7352", "#f9bc0f", "#b65d66", "#07a2e6", "#c091ae", "#8a91a7", "#88fc07", "#ea42fe", "#9e8010", "#10b437", "#c281fe", "#f92b75", "#07c99d", "#a946aa", "#bfd544", "#16977e", "#ff6ac8", "#a88178", "#5776a9", "#678007", "#fa9316", "#85c070", "#6aa2a9", "#989e5d", "#fe9169", "#cd714a", "#6ed014", "#c5639c", "#c23271", "#698ffc", "#678275", "#c5a121", "#a978ba", "#ee534e", "#d24506", "#59c3fa", "#ca7b0a", "#6f7385", "#9a634a", "#48aa6f", "#ad9ad0", "#d7908c", "#6a8a53", "#8c46fc", "#8f5ab8", "#fd1105", "#7ea7cf", "#d77cd1", "#a9804b", "#0688b4", "#6a9f3e", "#ee8fba", "#a67389", "#9e8cfe", "#bd443c", "#6d63ff", "#d110d5", "#798cc3", "#df5f83", "#b1b853", "#bb59d8", "#1d960c", "#867ba8", "#18acc9", "#25b3a7", "#f3db1d", "#938c6d", "#936a24", "#a964fb", "#92e460", "#a05787", "#9c87a0"];
+    var countryColors = ["#1b70fc", "#d50527", "#158940", "#f898fd", "#24c9d7", "#cb9b64", "#866888", "#22e67a", "#e509ae", "#9dabfa", "#437e8a", "#b21bff", "#ff7b91", "#94aa05", "#ac5906", "#82a68d", "#fe6616", "#7a7352", "#f9bc0f", "#b65d66", "#07a2e6", "#c091ae", "#8a91a7", "#88fc07", "#ea42fe", "#9e8010", "#10b437", "#c281fe", "#f92b75", "#07c99d", "#a946aa", "#bfd544", "#16977e", "#ff6ac8", "#a88178", "#5776a9", "#678007", "#fa9316", "#85c070", "#6aa2a9", "#989e5d", "#fe9169", "#cd714a", "#6ed014", "#c5639c", "#c23271", "#698ffc", "#678275", "#c5a121", "#a978ba", "#ee534e", "#d24506", "#59c3fa", "#ca7b0a", "#6f7385", "#9a634a", "#48aa6f", "#ad9ad0", "#d7908c", "#6a8a53", "#8c46fc", "#8f5ab8", "#fd1105", "#7ea7cf", "#d77cd1", "#a9804b", "#0688b4", "#6a9f3e", "#ee8fba", "#a67389", "#9e8cfe", "#bd443c", "#6d63ff", "#d110d5", "#798cc3", "#df5f83", "#b1b853", "#bb59d8", "#1d960c", "#867ba8", "#18acc9", "#25b3a7", "#f3db1d", "#938c6d", "#936a24", "#a964fb", "#92e460", "#a05787", "#9c87a0", "#faff16"];
 
 
 function hideAllCharts(){
@@ -552,7 +450,7 @@ function drawChart31_1() {
             .attr("class", "request")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-            d3.csv('data/2008.csv', function loadCallback(error, data) {
+            d3.csv('data/2017.csv', function loadCallback(error, data) {
 			
 				var data1 = data.filter(function(row){return ((row['States'] != 'California') && (row['States'] != 'New York') && (row['States'] != 'United States'))}); 			
                 
@@ -591,17 +489,17 @@ function drawChart31_1() {
 
 				var xScale = d3.scaleLinear()
 							.domain([ d3.min(data, function(d) { return d.sgrt; }) - 1,
-                            d3.max(data, function(d) { return d.sgrt +2.5e6; }) + 1 ])
+                            d3.max(data, function(d) { return d.sgrt +6e6; }) + 1 ])
 							 .rangeRound([0, width]);
 
 				var yScale = d3.scaleLinear()
 											.domain([ d3.min(data, function(d) { return d.it; }) - 1,
-                            d3.max(data, function(d) { return d.it +3e6; }) + 1 ])
+                            d3.max(data, function(d) { return d.it +1e6; }) + 1 ])
 						.rangeRound([height, 0]);
 
-    var xAxis = d3.axisBottom(xScale);
-    var yAxis = d3.axisLeft(yScale);
-				  
+				var xAxis = d3.axisBottom(xScale);
+				var yAxis = d3.axisLeft(yScale);
+							  
 				  
               <!-- // Define our axes -->
               <!-- var xAxis = d3.svg.axis() -->
@@ -650,9 +548,9 @@ function drawChart31_1() {
               // tooltip mouseover event handler
               var tipMouseover = function(d) {
                   var color = colorScale(d.States);
-                  var html  = d.States + "<br/>" +
-                              "<span style='color:" + color + ";'>" + d.sgrt + "</span><br/>" +
-                              "<b>" + d.it + "</b>";
+                  var html  = "State: <b>" + d.States + "</b><br/>" +
+                              "<span style='color:blue;'>Indirect Tax: <b>" + d.sgrt + "</b></span><br/>" +
+                              "<span style='color:green;'>Direct Tax: <b>" + d.it + "</b></span>";
 
                   tooltip.html(html)
                       .style("left", (d3.event.pageX + 15) + "px")
@@ -676,33 +574,45 @@ function drawChart31_1() {
                 .attr("r", 5.5) // radius size, could map to another data dimension
                 .attr("cx", function(d) { return xScale( d.sgrt ); })     // x position
                 .attr("cy", function(d) { return yScale( d.it ); })  // y position
-				.attr("fill", function(d, i){return countryColors[i];})
+ 				.attr("fill", function(d, i){return countryColors[i];})
                 .on("mouseover", tipMouseover)
                 .on("mouseout", tipMouseout);
 				
-				
+			var anot1 = canvas.append("text")
+			.attr("x", xScale(4897352))
+			.attr("y", yScale(1500000))
+			.attr("class","annotate")
+			.style("text-anchor", "middle")
+			.style("fill","blue");
+			
+			anot1.append("tspan")
+			.attr("x",  xScale(48897352)-50)
+			.attr("dy","1.0em")
+			.text("Highest Indirect Tax");
+			
+			anot1.append("tspan")
+			.attr("x",  xScale(48897352)-50)
+			.attr("dy","1.0em")
+			.text( d3.format(".2f")(46897352/1e6) + "M" );					
 				
 			var anot2 = canvas.append("text")
-			.attr("x", xScale(16951963))
-			.attr("y", yScale(14938327))
-			<!-- .attr("class","annotate") -->
+			.attr("x", xScale(9318347))
+			.attr("y", yScale(18020751))
+			.attr("class","annotate")
 			.style("text-anchor", "middle")
-			.style("fill","red");
+			.style("fill","green");
 			
 			anot2.append("tspan")
-			.attr("x",  xScale(16951963)-50)
+			.attr("x",  xScale(9318347)-50)
 			.attr("dy","1.0em")
-			.text("2015 Mar Peak");
+			.text("Highest Direct Tax");
 			
 			anot2.append("tspan")
-			.attr("x",  xScale(16951963)-50)
+			.attr("x",  xScale(9318347)-50)
 			.attr("dy","1.0em")
-			.text( d3.format(".2f")(14938327/1e6) + "M ($ 14938327)" );			
+			.text( d3.format(".2f")(16920751/1e6) + "M" );			
           };
-		  
-
-
-
+		 
 }
 				  
 				  
@@ -1308,7 +1218,8 @@ function drawLegend4_1(xDomain) {
 
 
 function drawChart41_1() {
-d3.selectAll("svg > *").remove();
+	d3.selectAll("svg > *").remove();
+	
     var selectState = document.getElementById("selectState");
 	
 	var svg = d3.select("#svgChart4_1"),
@@ -1324,7 +1235,7 @@ d3.selectAll("svg > *").remove();
 
 	var yScale = d3.scaleLinear()
 		.rangeRound([height, 0]);
-
+		
 	var line1 = d3.line()
 		.x(function(d) { return xScale(d.year); })
 		.y(function(d) { return yScale(d.sgrt); });
@@ -1389,6 +1300,33 @@ d3.selectAll("svg > *").remove();
 			  .attr("text-anchor", "end")
 			  .text("Value ($)");
 
+              // Add the tooltip container to the vis container
+              // it's invisible and its position/contents are defined during mouseover
+              var tooltip = d3.select("body").append("div")
+                  .attr("class", "tooltip")
+                  .style("opacity", 0);
+
+              // tooltip mouseover event handler
+              var tipMouseover1 = function(d, i) {
+			  
+                  var html  = "<span style='color:blue;'>Year: <b>" + d[i].year + "</b></span><br/>" + 
+				  "<span style='color:green;'>Value: <b>" + d.sgrt + "</b></span><br/>";
+
+                  tooltip.html(html)
+                      .style("left", (d3.event.pageX + 15) + "px")
+                      .style("top", (d3.event.pageY - 28) + "px")
+                    .transition()
+                      .duration(200) // ms
+                      .style("opacity", .9) // started as 0!
+
+              };
+              // tooltip mouseout event handler
+              var tipMouseout = function(d) {
+                  tooltip.transition()
+                      .duration(300) // ms
+                      .style("opacity", 0); // don't care about position!
+              };			  
+
 			g.append("path")
 			  .datum(data)
 			  .attr("fill", "none")
@@ -1415,6 +1353,7 @@ d3.selectAll("svg > *").remove();
 			  .attr("stroke-linecap", "round")
 			  .attr("stroke-width", 1.5)
 			  .attr("d", line3);
+		  
 		};
 	}
 
